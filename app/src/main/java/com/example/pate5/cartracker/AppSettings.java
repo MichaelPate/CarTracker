@@ -54,22 +54,13 @@ public class AppSettings extends AppCompatActivity {
         // Put all the option bar settings
         try {
             Spinner opt = findViewById(R.id.optionBar1);
-            db.addInformation("optionBar1", opt.getSelectedItem().toString(),
-                    db.getInformationValue("optionBar1"));
-            db.addInformation("optionBar1", opt.getSelectedItem().toString(),
-                    "0");
-            //TextView t = findViewById(R.id.debug_totalMiles);
-            //Log.d("CarTrackerSQL", t.getText().toString());
-            //db.addInformation("optionBar1", "Total Miles", t.getText().toString());
+            db.addInformation("optionBar1", opt.getSelectedItem().toString());
             opt = findViewById(R.id.optionBar2);
-            db.addInformation("optionBar2", opt.getSelectedItem().toString(),
-                    db.getInformationValue("optionBar2"));
+            db.addInformation("optionBar2", opt.getSelectedItem().toString());
             opt = findViewById(R.id.optionBar3);
-            db.addInformation("optionBar3", opt.getSelectedItem().toString(),
-                    db.getInformationValue("optionBar3"));
+            db.addInformation("optionBar3", opt.getSelectedItem().toString());
             opt = findViewById(R.id.optionBar4);
-            db.addInformation("optionBar4", opt.getSelectedItem().toString(),
-                    db.getInformationValue("optionBar4"));
+            db.addInformation("optionBar4", opt.getSelectedItem().toString());
         } catch(Exception e) {
             Log.e("CarTrackerSQL", "Could not write to database: " + e.toString());
             e.printStackTrace();

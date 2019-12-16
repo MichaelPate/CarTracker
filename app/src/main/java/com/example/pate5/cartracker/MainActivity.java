@@ -30,8 +30,7 @@ public class MainActivity extends AppCompatActivity {
                 lab.setVisibility(View.VISIBLE);
                 val.setVisibility(View.VISIBLE);
             }
-            //Log.d("CarTrackerSQL", db.getInformationValue("optionBar1"));
-            val.setText(db.getInformationValue("optionBar1"));
+            val.setText(db.getInformation(String.valueOf(lab.getText())));
             lab.setText(opt);
 
             opt = db.getInformation("optionBar2");
@@ -45,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
                 val.setVisibility(View.VISIBLE);
             }
             lab.setText(opt);
-            val.setText(db.getInformationValue("optionBar2"));
+            val.setText(db.getInformation(String.valueOf(lab.getText())));
 
             opt = db.getInformation("optionBar3");
             lab = findViewById(R.id.option3Label);
@@ -58,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 val.setVisibility(View.VISIBLE);
             }
             lab.setText(opt);
-            val.setText(db.getInformationValue("optionBar3"));
+            val.setText(db.getInformation(String.valueOf(lab.getText())));
 
             opt = db.getInformation("optionBar4");
             lab = findViewById(R.id.option4Label);
@@ -71,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 val.setVisibility(View.VISIBLE);
             }
             lab.setText(opt);
-            val.setText(db.getInformationValue("optionBar4"));
+            val.setText(db.getInformation(String.valueOf(lab.getText())));
 
         } catch (Exception e) {
             Log.e("CarTrackerSQL", "Exception: " + e.toString());

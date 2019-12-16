@@ -64,7 +64,7 @@ public class EntryDatabase extends SQLiteOpenHelper {
 
     // To store information, the subject of the information will be in REPAIRNAME
     // Re-purposing this keeps the database simpler.
-    public void addInformation(String subject, String body, String value) {
+    public void addInformation(String subject, String body) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         // If entry exists, update by deleting it.
@@ -89,7 +89,6 @@ public class EntryDatabase extends SQLiteOpenHelper {
         entryAttribs.put(KEY_TYPE, "INFORMATION");
         entryAttribs.put(KEY_REPAIRNAME, subject);
         entryAttribs.put(KEY_COMMENTS, body);
-        entryAttribs.put(KEY_MAINTTYPE, value);
         db.insert(TABLE_ENTRIES, null, entryAttribs);
         db.close();
     }
@@ -100,11 +99,12 @@ public class EntryDatabase extends SQLiteOpenHelper {
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(sqlQuery, null);
 
-        // KEY_REPAIRNAME was used to hold the subject of the information
-        // because it is a string value, and keeps the database simpler.
+
 
         if (cursor.moveToFirst()) {
             do {
+                // KEY_REPAIRNAME was used to hold the subject of the information
+                // because it is a string value, and keeps the database simpler.
                 if (cursor.getString(5).equals("INFORMATION")) {
                     if (cursor.getString(10).equals(subject)) {
                         return cursor.getString(4);
@@ -114,27 +114,4 @@ public class EntryDatabase extends SQLiteOpenHelper {
         }
         return null;
     }
-
-    public String getInformationValue(String subject) {
-        String sqlQuery = "SELECT * FROM " + TABLE_ENTRIES;
-
-        SQLiteDatabase database = this.getWritableDatabase();
-        Cursor cursor = database.rawQuery(sqlQuery, null);
-
-        // KEY_MAINTTYPE was used to hold the numerical value of the option bar
-        // because it is a string value, and keeps the database simpler.
-
-        if (cursor.moveToFirst()) {
-            do {
-                if (cursor.getString(5).equals("INFORMATION")) {
-                    if (cursor.getString(10).equals(subject)) {
-                        return cursor.getString(11);
-                    }
-                }
-            } while (cursor.moveToNext());
-        }
-        return null;
-    }
-
-
 }
