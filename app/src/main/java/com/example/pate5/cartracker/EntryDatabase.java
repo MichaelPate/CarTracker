@@ -210,4 +210,46 @@ public class EntryDatabase extends SQLiteOpenHelper {
         db.execSQL(uQuery);
         return uQuery;
     }
+
+    // Returns a nicely formatted string of the row of information.
+    // If includeInformation = true, it will also prettify the
+    public String exportEntryByKeyId(String id, boolean includeInformation) {
+
+    }
+
+    public String exportEntryByEid(String eid, boolean includeInformation) {
+
+    }
+
+    public void deleteEntryByEid(String eid) {
+
+    }
+
+    public void deleteEntryByKeyId(String id) {
+
+    }
+
+    public void deleteAllEntries() {
+
+    }
+
+    // Returns a count of the rows, if includeInformation = true
+    // then internal information is included in the count.
+    public int countAllEntries(boolean includeInformation) {
+        int c = 0;
+
+        String sqlQuery = "SELECT * FROM " + TABLE_ENTRIES;
+
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(sqlQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                c++;
+            } while (cursor.moveToNext());
+        }
+
+        return c;
+    }
+
 }
