@@ -15,23 +15,39 @@ public class EntryDatabase extends SQLiteOpenHelper {
     private static final String KEY_ID = "id";
     private static final String KEY_ENTRYID = "entryid";
     private static final String TABLE_ENTRIES = "entries";
-    private static final String KEY_DATE = "date";
-    private static final String KEY_ODOMETER = "odometer";
-    private static final String KEY_COMMENTS = "comments";
-    private static final String KEY_TYPE = "entrytype";
+
+    public static final String KEY_DATE = "date";
+    public static final String KEY_ODOMETER = "odometer";
+    public static final String KEY_COMMENTS = "comments";
+    public static final String KEY_TYPE = "entrytype";
 
     // Entry data for gas type entries
-    private static final String KEY_GASPRICE = "gasprice";
-    private static final String KEY_GASVOLUME = "gasvolume";
-    private static final String KEY_GASTOTAL = "gastotal";
+    public static final String KEY_GASPRICE = "gasprice";
+    public static final String KEY_GASVOLUME = "gasvolume";
+    public static final String KEY_GASTOTAL = "gastotal";
 
     // Entry data for repair type entries
-    private static final String KEY_REPAIRPRICE = "repairprice";
-    private static final String KEY_REPAIRNAME = "repairname";
+    public static final String KEY_REPAIRPRICE = "repairprice";
+    public static final String KEY_REPAIRNAME = "repairname";
 
     // Entry data for maintenance type entries
-    private static final String KEY_MAINTTYPE = "mainttype";
-    private static final String KEY_MAINTCOST = "maintcost";
+    public static final String KEY_MAINTTYPE = "mainttype";
+    public static final String KEY_MAINTCOST = "maintcost";
+
+    // Public constants for string numbers
+    public static final int col_id = 0;
+    public static final int col_entryid = 1;
+    public static final int col_date = 2;
+    public static final int col_odometer = 3;
+    public static final int col_comments = 4;
+    public static final int col_type = 5;
+    public static final int col_gasprice = 6;
+    public static final int col_gasvolume = 7;
+    public static final int col_gastotal = 8;
+    public static final int col_repairprice = 9;
+    public static final int col_repairname = 10;
+    public static final int col_mainttype = 11;
+    public static final int col_maintcost = 12;
 
     public EntryDatabase(Context c) {
         super(c, DATABASE_NAME, null, DATABASE_VERSION);
@@ -99,8 +115,6 @@ public class EntryDatabase extends SQLiteOpenHelper {
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(sqlQuery, null);
 
-
-
         if (cursor.moveToFirst()) {
             do {
                 // KEY_REPAIRNAME was used to hold the subject of the information
@@ -113,5 +127,81 @@ public class EntryDatabase extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
         return null;
+    }
+
+    // Methods for getting attributes
+    public String getKeyIdByEid(int eid) {
+        String sqlQuery = "SELECT * FROM " + TABLE_ENTRIES;
+
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(sqlQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                if(cursor.getString(1).equals(eid)) {
+                    return cursor.getString(0);
+                }
+            } while (cursor.moveToNext());
+        }
+        return null;
+    }
+
+    public String getEidByKeyId(int id) {
+        String sqlQuery = "SELECT * FROM " + TABLE_ENTRIES;
+
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(sqlQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                if(cursor.getString(0).equals(id)) {
+                    return cursor.getString(1);
+                }
+            } while (cursor.moveToNext());
+        }
+        return null;
+    }
+
+    public String getAttribByEid(String eid, int colNum) {
+        if (colNum < 0 || colNum > 12) return "invalid.";
+
+        String sqlQuery = "SELECT * FROM " + TABLE_ENTRIES;
+
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(sqlQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                if (cursor.getString(1).equals(eid)) {
+                    return cursor.getString(colNum);
+                }
+            } while (cursor.moveToNext());
+        }
+        return null;
+    }
+
+    public String getAttribByKeyId(String id, int colNum) {
+        if (colNum < 0 || colNum > 12) return "invalid.";
+
+        String sqlQuery = "SELECT * FROM " + TABLE_ENTRIES;
+
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(sqlQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                if (cursor.getString(0).equals(id)) {
+                }
+            } while (cursor.moveToNext());
+        }
+        return null;
+    }
+
+    public void setAttribByEid(String eid, String key, String value) {
+        //TODO: Update database row with specified columns for Entry IDs
+    }
+
+    public void setAttributeByKeyId(String id, String key, String value) {
+        //TODO: Update database row with specified columns for Key IDs
     }
 }
