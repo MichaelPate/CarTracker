@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="Options1">
+        <item>Total Days</item>
+        <item>None</item>
+        <item>Number of Entries</item>
+        <item>Total Miles</item>
+        <item>Total Cost</item>
+        <item>Number of Gas Entries</item>
+        <item>Number of Repair Entries</item>
+        <item>Number of Maint. Entries</item>
+    </string-array>
+    <string-array name="Options2">
+        <item>Average MPG</item>
+        <item>None</item>
+        <item>Average Gas Cost</item>
+        <item>Total Gas</item>
+        <item>Total Gas Cost</item>
+    </string-array>
+    <string-array name="Options3">
+        <item>Miles Between Service</item>
+        <item>None</item>
+        <item>Average Service Cost</item>
+        <item>Total Service Cost</item>
+    </string-array>
+    <string-array name="Options4">
+        <item>None</item>
+        <item>Average Repair Cost</item>
+        <item>Total Repair Cost</item>
+        <item>Miles Between Repair</item>
+    </string-array>
+</resources>

@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Car Tracker</string>
+    <string name="aboutButtonLabel">About</string>
+    <string name="homeButtonText">Home</string>
+    <string name="welcomeString">Welcome!</string>
+    <string name="settingsButton">Settings</string>
+    <string name="optionBarLabel">Main Menu Option Bars</string>
+</resources>
