@@ -10,30 +10,24 @@ import android.util.Log;
 public class EntryDatabase extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "EntryLog";
-
     // Entry data that is common
     private static final String KEY_ID = "id";
     private static final String KEY_ENTRYID = "entryid";
     private static final String TABLE_ENTRIES = "entries";
-
     public static final String KEY_DATE = "date";
     public static final String KEY_ODOMETER = "odometer";
     public static final String KEY_COMMENTS = "comments";
     public static final String KEY_TYPE = "entrytype";
-
     // Entry data for gas type entries
     public static final String KEY_GASPRICE = "gasprice";
     public static final String KEY_GASVOLUME = "gasvolume";
     public static final String KEY_GASTOTAL = "gastotal";
-
     // Entry data for repair type entries
     public static final String KEY_REPAIRPRICE = "repairprice";
     public static final String KEY_REPAIRNAME = "repairname";
-
     // Entry data for maintenance type entries
     public static final String KEY_MAINTTYPE = "mainttype";
     public static final String KEY_MAINTCOST = "maintcost";
-
     // Public constants for string numbers
     public static final int col_id = 0;
     public static final int col_entryid = 1;
@@ -48,6 +42,7 @@ public class EntryDatabase extends SQLiteOpenHelper {
     public static final int col_repairname = 10;
     public static final int col_mainttype = 11;
     public static final int col_maintcost = 12;
+
 
     public EntryDatabase(Context c) {
         super(c, DATABASE_NAME, null, DATABASE_VERSION);
@@ -130,7 +125,7 @@ public class EntryDatabase extends SQLiteOpenHelper {
     }
 
     // Methods for getting attributes
-    public String getKeyIdByEid(int eid) {
+    public String getKeyIdByEid(String eid) {
         String sqlQuery = "SELECT * FROM " + TABLE_ENTRIES;
 
         SQLiteDatabase database = this.getWritableDatabase();
@@ -138,7 +133,7 @@ public class EntryDatabase extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                if(cursor.getString(1).equals(eid)) {
+                if (cursor.getString(1).equals(eid)) {
                     return cursor.getString(0);
                 }
             } while (cursor.moveToNext());
@@ -146,7 +141,7 @@ public class EntryDatabase extends SQLiteOpenHelper {
         return null;
     }
 
-    public String getEidByKeyId(int id) {
+    public String getEidByKeyId(String id) {
         String sqlQuery = "SELECT * FROM " + TABLE_ENTRIES;
 
         SQLiteDatabase database = this.getWritableDatabase();
@@ -154,7 +149,7 @@ public class EntryDatabase extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                if(cursor.getString(0).equals(id)) {
+                if (cursor.getString(0).equals(id)) {
                     return cursor.getString(1);
                 }
             } while (cursor.moveToNext());
@@ -191,17 +186,28 @@ public class EntryDatabase extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 if (cursor.getString(0).equals(id)) {
+                    return cursor.getString(colNum);
                 }
             } while (cursor.moveToNext());
         }
         return null;
     }
 
-    public void setAttribByEid(String eid, String key, String value) {
-        //TODO: Update database row with specified columns for Entry IDs
+    public String setAttribByEid(String eid, String key, String value) {
+        String uQuery = "UPDATE " + TABLE_ENTRIES + " SET ";
+        uQuery += key + " = " + value;
+        uQuery += " WHERE ID = " + getKeyIdByEid(eid) + ";";
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL(uQuery);
+        return uQuery;
     }
 
-    public void setAttributeByKeyId(String id, String key, String value) {
-        //TODO: Update database row with specified columns for Key IDs
+    public String setAttribByKeyId(String id, String key, String value) {
+        String uQuery = "UPDATE " + TABLE_ENTRIES + " SET ";
+        uQuery += key + " = " + value;
+        uQuery += " WHERE ID = " + id + ";";
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL(uQuery);
+        return uQuery;
     }
 }

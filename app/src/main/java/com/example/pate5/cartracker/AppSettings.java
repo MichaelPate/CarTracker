@@ -1,13 +1,12 @@
 package com.example.pate5.cartracker;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 public class AppSettings extends AppCompatActivity {
 
@@ -24,19 +23,19 @@ public class AppSettings extends AppCompatActivity {
         try {
             String opt = db.getInformation("optionBar1");
             Spinner spin = findViewById(R.id.optionBar1);
-            spin.setSelection(((ArrayAdapter)spin.getAdapter()).getPosition(opt));
+            spin.setSelection(((ArrayAdapter) spin.getAdapter()).getPosition(opt));
 
             opt = db.getInformation("optionBar2");
             spin = findViewById(R.id.optionBar2);
-            spin.setSelection(((ArrayAdapter)spin.getAdapter()).getPosition(opt));
+            spin.setSelection(((ArrayAdapter) spin.getAdapter()).getPosition(opt));
 
             opt = db.getInformation("optionBar3");
             spin = findViewById(R.id.optionBar3);
-            spin.setSelection(((ArrayAdapter)spin.getAdapter()).getPosition(opt));
+            spin.setSelection(((ArrayAdapter) spin.getAdapter()).getPosition(opt));
 
             opt = db.getInformation("optionBar4");
             spin = findViewById(R.id.optionBar4);
-            spin.setSelection(((ArrayAdapter)spin.getAdapter()).getPosition(opt));
+            spin.setSelection(((ArrayAdapter) spin.getAdapter()).getPosition(opt));
         } catch (Exception e) {
 
         }
@@ -61,7 +60,7 @@ public class AppSettings extends AppCompatActivity {
             db.addInformation("optionBar3", opt.getSelectedItem().toString());
             opt = findViewById(R.id.optionBar4);
             db.addInformation("optionBar4", opt.getSelectedItem().toString());
-        } catch(Exception e) {
+        } catch (Exception e) {
             Log.e("CarTrackerSQL", "Could not write to database: " + e.toString());
             e.printStackTrace();
         }

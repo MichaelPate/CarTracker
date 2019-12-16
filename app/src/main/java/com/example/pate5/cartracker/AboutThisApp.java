@@ -1,12 +1,10 @@
 package com.example.pate5.cartracker;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 public class AboutThisApp extends AppCompatActivity {
 
