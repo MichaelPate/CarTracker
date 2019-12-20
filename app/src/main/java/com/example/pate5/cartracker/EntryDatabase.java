@@ -104,6 +104,40 @@ public class EntryDatabase extends SQLiteOpenHelper {
         db.close();
     }
 
+    // Returns an incremented entryid, for use in creating sequential entries
+    // Start with the eid, date, odometer, and type.
+    // Edd everything else later in entry processing.
+    public String addEntry(String eid, String type, String date, String odometer) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // If entry exists, update by deleting it.
+        try {
+            String sqlQuery = "SELECT * FROM " + TABLE_ENTRIES;
+            Cursor cursor = db.rawQuery(sqlQuery, null);
+            if (cursor.moveToFirst()) {
+                do {
+                    if (cursor.getString(col_type).equals(type)) {
+                        if (cursor.getString(col_date).equals(date) && cursor.getString(col_odometer).equals(odometer)) {
+                            db.delete(TABLE_ENTRIES, KEY_ID + "=?", new String[]{
+                                    String.valueOf(cursor.getLong(col_id))});
+                        }
+                    }
+                } while (cursor.moveToNext());
+            }
+        } catch (Exception e) {
+            Log.e("CarTrackerSQL", "Could not delete information row: " + e.toString());
+        }
+
+        ContentValues entryAttribs = new ContentValues();
+        entryAttribs.put(KEY_TYPE, type);
+        entryAttribs.put(KEY_DATE, date);
+        entryAttribs.put(KEY_ENTRYID, eid);
+        entryAttribs.put(KEY_ODOMETER, odometer);
+        db.insert(TABLE_ENTRIES, null, entryAttribs);
+        db.close();
+        return String.valueOf(Integer.parseInt(eid)+1);
+    }
+
     public String getInformation(String subject) {
         String sqlQuery = "SELECT * FROM " + TABLE_ENTRIES;
 
