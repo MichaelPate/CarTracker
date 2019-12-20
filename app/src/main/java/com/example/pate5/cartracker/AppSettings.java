@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 public class AppSettings extends AppCompatActivity {
@@ -36,6 +37,10 @@ public class AppSettings extends AppCompatActivity {
             opt = db.getInformation("optionBar4");
             spin = findViewById(R.id.optionBar4);
             spin.setSelection(((ArrayAdapter) spin.getAdapter()).getPosition(opt));
+
+            opt = db.getInformation("initialMiles");
+            EditText et = findViewById(R.id.initialOdoBox);
+            et.setText(opt);
         } catch (Exception e) {
 
         }
@@ -60,6 +65,9 @@ public class AppSettings extends AppCompatActivity {
             db.addInformation("optionBar3", opt.getSelectedItem().toString());
             opt = findViewById(R.id.optionBar4);
             db.addInformation("optionBar4", opt.getSelectedItem().toString());
+
+            EditText et = findViewById(R.id.initialOdoBox);
+            db.addInformation("initialMiles", et.getText().toString());
         } catch (Exception e) {
             Log.e("CarTrackerSQL", "Could not write to database: " + e.toString());
             e.printStackTrace();

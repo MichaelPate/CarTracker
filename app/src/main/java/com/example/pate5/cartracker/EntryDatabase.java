@@ -357,8 +357,6 @@ public class EntryDatabase extends SQLiteOpenHelper {
                 }
             } while (cursor.moveToNext());
         }
-
         return c;
     }
-
 }
