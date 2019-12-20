@@ -84,10 +84,10 @@ public class EntryDatabase extends SQLiteOpenHelper {
             Cursor cursor = db.rawQuery(sqlQuery, null);
             if (cursor.moveToFirst()) {
                 do {
-                    if (cursor.getString(5).equals("INFORMATION")) {
-                        if (cursor.getString(10).equals(subject)) {
+                    if (cursor.getString(col_type).equals("INFORMATION")) {
+                        if (cursor.getString(col_repairname).equals(subject)) {
                             db.delete(TABLE_ENTRIES, KEY_ID + "=?", new String[]{
-                                    String.valueOf(cursor.getLong(cursor.getColumnIndex("id")))});
+                                    String.valueOf(cursor.getLong(col_id))});
                         }
                     }
                 } while (cursor.moveToNext());
@@ -114,9 +114,9 @@ public class EntryDatabase extends SQLiteOpenHelper {
             do {
                 // KEY_REPAIRNAME was used to hold the subject of the information
                 // because it is a string value, and keeps the database simpler.
-                if (cursor.getString(5).equals("INFORMATION")) {
-                    if (cursor.getString(10).equals(subject)) {
-                        return cursor.getString(4);
+                if (cursor.getString(col_type).equals("INFORMATION")) {
+                    if (cursor.getString(col_repairname).equals(subject)) {
+                        return cursor.getString(col_comments);
                     }
                 }
             } while (cursor.moveToNext());
@@ -133,8 +133,8 @@ public class EntryDatabase extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                if (cursor.getString(1).equals(eid)) {
-                    return cursor.getString(0);
+                if (cursor.getString(col_id).equals(eid)) {
+                    return cursor.getString(col_entryid);
                 }
             } while (cursor.moveToNext());
         }
@@ -149,8 +149,8 @@ public class EntryDatabase extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                if (cursor.getString(0).equals(id)) {
-                    return cursor.getString(1);
+                if (cursor.getString(col_id).equals(id)) {
+                    return cursor.getString(col_entryid);
                 }
             } while (cursor.moveToNext());
         }
@@ -167,7 +167,7 @@ public class EntryDatabase extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                if (cursor.getString(1).equals(eid)) {
+                if (cursor.getString(col_entryid).equals(eid)) {
                     return cursor.getString(colNum);
                 }
             } while (cursor.moveToNext());
@@ -185,7 +185,7 @@ public class EntryDatabase extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                if (cursor.getString(0).equals(id)) {
+                if (cursor.getString(col_id).equals(id)) {
                     return cursor.getString(colNum);
                 }
             } while (cursor.moveToNext());
@@ -211,26 +211,131 @@ public class EntryDatabase extends SQLiteOpenHelper {
         return uQuery;
     }
 
-    // Returns a nicely formatted string of the row of information.
-    // If includeInformation = true, it will also prettify the
-    public String exportEntryByKeyId(String id, boolean includeInformation) {
+    // If keyOrEntry = True: method returns key id (id)
+    // If keyOrEntry = False: method returns entry id (eid)
+    public String getInformationId(String subject, boolean KeyOrEntry) {
+        String sqlQuery = "SELECT * FROM " + TABLE_ENTRIES;
 
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(sqlQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                if (cursor.getString(col_type).equals("INFORMATION")) {
+                    if (cursor.getString(col_repairname).equals(subject)) {
+                        if (KeyOrEntry) return cursor.getString(col_id);
+                        else return cursor.getString(col_entryid);
+                    }
+                }
+            } while (cursor.moveToNext());
+        }
+        return null;
     }
 
-    public String exportEntryByEid(String eid, boolean includeInformation) {
 
+    // Returns a nicely formatted string of the row of information.
+    // If includeInformation = true, it will also prettify the
+    public String exportEntryByKeyId(String id) {
+        String sqlQuery = "SELECT * FROM " + TABLE_ENTRIES;
+
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(sqlQuery, null);
+
+        try {
+            if (cursor.moveToFirst()) {
+                do {
+                    if (cursor.getString(col_id).equals(id)) {
+                        // Build string here
+                        String type = cursor.getString(col_type);
+
+                        // Add common data
+                        String output = "ID: " + cursor.getString(col_id) + "\t";
+                        output += "Date: " + cursor.getString(col_date) + "\t";
+                        output += "Odometer: " + cursor.getString(col_odometer) + "\t";
+                        output += "Type: " + type + "\t";
+                        output += "Comments: " + cursor.getString(col_comments) + "\t";
+
+                        if (type == "Gas") {
+                            output += "Gas Price: " + cursor.getString(col_gasprice) + "\t";
+                            output += "Gas Volume: " + cursor.getString(col_gasvolume) + "\t";
+                            output += "Gas Total: " + cursor.getString(col_gastotal);
+                        } else if (type == "Repair") {
+                            output += "Repair Name: " + cursor.getString(col_repairname) + "\t";
+                            output += "Repair Price: " + cursor.getString(col_repairprice);
+                        } else if (type == "Maintenance") {
+                            output += "Maintenance Type: " + cursor.getString(col_mainttype) + "\t";
+                            output += "Maintenance Price: " + cursor.getString(col_maintcost);
+                        } else if (type == "INFORMATION") {
+                            output += "Information Subject: " + cursor.getString(col_repairname) + "\t";
+                            output += "Information Body: " + cursor.getString(col_comments);
+                        } else {
+                            throw new Exception("Invalid Entry Type");
+                        }
+
+                        return output;
+                    }
+                } while (cursor.moveToNext());
+            }
+        } catch (Exception e) {
+            Log.e("CarTrackerSQL", "Could not export row by Key ID.");
+            return "Invalid Export.";
+        }
+        return null;
+    }
+
+    public String exportEntryByEid(String eid) {
+        return exportEntryByKeyId(getKeyIdByEid(eid));
     }
 
     public void deleteEntryByEid(String eid) {
+        String sqlQuery = "SELECT * FROM " + TABLE_ENTRIES;
 
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(sqlQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                if (cursor.getString(col_id).equals(eid)) {
+                    database.delete(TABLE_ENTRIES, KEY_ID+"=?", new String[]
+                            {String.valueOf(Integer.parseInt(cursor.getString(col_id)))});
+                    database.close();
+                    break;
+                }
+            } while (cursor.moveToNext());
+        }
     }
 
     public void deleteEntryByKeyId(String id) {
+        String sqlQuery = "SELECT * FROM " + TABLE_ENTRIES;
 
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(sqlQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                if (cursor.getString(col_id).equals(id)) {
+                    database.delete(TABLE_ENTRIES, KEY_ID+"=?", new String[]
+                            {String.valueOf(Integer.parseInt(cursor.getString(col_id)))});
+                    database.close();
+                    break;
+                }
+            } while (cursor.moveToNext());
+        }
     }
 
     public void deleteAllEntries() {
+        String sqlQuery = "SELECT * FROM " + TABLE_ENTRIES;
 
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(sqlQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                database.delete(TABLE_ENTRIES, KEY_ID+"=?", new String[]
+                        {String.valueOf(Integer.parseInt(cursor.getString(col_id)))});
+                database.close();
+            } while (cursor.moveToNext());
+        }
     }
 
     // Returns a count of the rows, if includeInformation = true
@@ -245,7 +350,11 @@ public class EntryDatabase extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                c++;
+                if (cursor.getString(col_type).equals("INFORMATION")) {
+                    c += includeInformation? 1 : 0;
+                } else {
+                    c++;
+                }
             } while (cursor.moveToNext());
         }
 

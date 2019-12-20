@@ -29,4 +29,9 @@
         <item>Total Repair Cost</item>
         <item>Miles Between Repair</item>
     </string-array>
+    <string-array name="entryType">
+        <item>Gas</item>
+        <item>Repair</item>
+        <item>Maintenance</item>
+    </string-array>
 </resources>
