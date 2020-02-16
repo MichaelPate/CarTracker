@@ -9,7 +9,7 @@ import android.util.Log;
 
 import java.util.Objects;
 
-class EntryDatabase extends SQLiteOpenHelper {
+class entry_database extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "EntryLog";
     // Entry data that is common
@@ -46,7 +46,7 @@ class EntryDatabase extends SQLiteOpenHelper {
     static final int col_maintcost = 12;
 
 
-    EntryDatabase(Context c) {
+    entry_database(Context c) {
         super(c, DATABASE_NAME, null, DATABASE_VERSION);
     }
 

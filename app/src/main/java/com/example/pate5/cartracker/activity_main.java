@@ -16,7 +16,7 @@ public class activity_main extends AppCompatActivity {
 
         try {
 // check flag for new install, if new install, open app to settings page. Make sure user enters initial miles, and when they press save and home, clear the flag and go to home like normal.
-            EntryDatabase db = new EntryDatabase(this);
+            entry_database db = new entry_database(this);
 
             String isNew = db.getInformation("isInstallNew");
             if(isNew == null) {
@@ -85,6 +85,11 @@ public class activity_main extends AppCompatActivity {
     public void aboutThisApp(View v) {
         Intent openActivity = new Intent(activity_main.this, activity_about_this_app.class);
         openActivity.putExtra("Version", "1.0");
+        activity_main.this.startActivity(openActivity);
+    }
+
+    public void goToEntryList(View v) {
+        Intent openActivity = new Intent(activity_main.this, activity_entry_list.class);
         activity_main.this.startActivity(openActivity);
     }
 

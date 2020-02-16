@@ -20,7 +20,7 @@ public class activity_app_settings extends AppCompatActivity {
     // All settings and options here
     String opt1, opt2, opt3, opt4, initMiles;
 
-    private EntryDatabase db = null;
+    private entry_database db = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +28,7 @@ public class activity_app_settings extends AppCompatActivity {
         setContentView(R.layout.activity_app_settings);
         Objects.requireNonNull(getSupportActionBar()).setTitle("Settings");
 
-        db = new EntryDatabase(this);
+        db = new entry_database(this);
 
         try {
             opt1 = db.getInformation("optionBar1");
