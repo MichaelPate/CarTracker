@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import java.util.Objects;
 
-public class AboutThisApp extends AppCompatActivity {
+public class activity_about_this_app extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +22,7 @@ public class AboutThisApp extends AppCompatActivity {
     }
 
     public void returnToHome(View v) {
-        Intent openActivity = new Intent(AboutThisApp.this, MainActivity.class);
-        AboutThisApp.this.startActivity(openActivity);
+        Intent openActivity = new Intent(activity_about_this_app.this, activity_main.class);
+        activity_about_this_app.this.startActivity(openActivity);
     }
 }

@@ -7,7 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class activity_main extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,13 +83,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void aboutThisApp(View v) {
-        Intent openActivity = new Intent(MainActivity.this, AboutThisApp.class);
+        Intent openActivity = new Intent(activity_main.this, activity_about_this_app.class);
         openActivity.putExtra("Version", "1.0");
-        MainActivity.this.startActivity(openActivity);
+        activity_main.this.startActivity(openActivity);
     }
 
     public void openSettings(View v) {
-        Intent openActivity = new Intent(MainActivity.this, AppSettings.class);
+        Intent openActivity = new Intent(activity_main.this, activity_app_settings.class);
 
         TextView tv = findViewById(R.id.option1Label);
         String opt = tv.getText().toString();
@@ -107,6 +107,6 @@ public class MainActivity extends AppCompatActivity {
         opt = tv.getText().toString();
         openActivity.putExtra("Option4", opt);
 
-        MainActivity.this.startActivity(openActivity);
+        activity_main.this.startActivity(openActivity);
     }
 }

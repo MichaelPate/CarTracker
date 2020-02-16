@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import java.util.Objects;
 
-public class AppSettings extends AppCompatActivity {
+public class activity_app_settings extends AppCompatActivity {
 
     // All settings and options here
     String opt1, opt2, opt3, opt4, initMiles;
@@ -91,8 +91,8 @@ public class AppSettings extends AppCompatActivity {
 
                     public void onClick(DialogInterface dialog, int which) {
                         // Do nothing but close the dialog
-                        Intent openActivity = new Intent(AppSettings.this, MainActivity.class);
-                        AppSettings.this.startActivity(openActivity);
+                        Intent openActivity = new Intent(activity_app_settings.this, activity_main.class);
+                        activity_app_settings.this.startActivity(openActivity);
                         dialog.dismiss();
                     }
                 });
@@ -107,14 +107,14 @@ public class AppSettings extends AppCompatActivity {
                 AlertDialog alert = builder.create();
                 alert.show();
             } else {
-                Intent openActivity = new Intent(AppSettings.this, MainActivity.class);
-                AppSettings.this.startActivity(openActivity);
+                Intent openActivity = new Intent(activity_app_settings.this, activity_main.class);
+                activity_app_settings.this.startActivity(openActivity);
             }
         }
     }
 
     public void saveAndReturnHome(View v) {
-        Intent openActivity = new Intent(AppSettings.this, MainActivity.class);
+        Intent openActivity = new Intent(activity_app_settings.this, activity_main.class);
 
         // Put all the option bar settings
         try {
@@ -147,7 +147,7 @@ public class AppSettings extends AppCompatActivity {
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
                 db.addInformation("isInstallNew", "false");
-                AppSettings.this.startActivity(openActivity);
+                activity_app_settings.this.startActivity(openActivity);
             } catch (NumberFormatException ex) {
                 Context context = getApplicationContext();
                 CharSequence text = "Some settings are invalid.";
