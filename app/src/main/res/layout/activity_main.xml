@@ -15,7 +15,8 @@
         android:onClick="aboutThisApp"
         android:text="@string/aboutButtonLabel"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textAllCaps="false" />
 
     <TextView
         android:id="@+id/textView4"
@@ -24,7 +25,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="@string/welcomeString"
+        android:text="Summary"
         android:textAlignment="viewStart"
         android:textColor="@android:color/black"
         android:textSize="16sp"
@@ -32,6 +33,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:text="Recent Entries"
+        android:textAlignment="viewStart"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/option4Label" />
 
     <Button
         android:id="@+id/button3"
@@ -42,7 +57,8 @@
         android:onClick="openSettings"
         android:text="@string/settingsButton"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button" />
+        app:layout_constraintEnd_toStartOf="@+id/button"
+        android:textAllCaps="false" />
 
     <TextView
         android:id="@+id/option1Label"
@@ -135,5 +151,32 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/textView4"
         app:layout_constraintTop_toBottomOf="@+id/optionValue3" />
+
+    <Button
+        android:id="@+id/entryMgrBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="View Entries"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button3"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ListView
+        android:id="@+id/recentEntryList"
+        android:layout_width="448dp"
+        android:layout_height="533dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/entryMgrBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
 
 </android.support.constraint.ConstraintLayout>
