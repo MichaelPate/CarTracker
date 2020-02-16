@@ -8,91 +8,91 @@ interface TrackerEntry {
     float entryOdometer = 0;
     String entryComments = null;
 
-    public Date getEntryDate();
+    Date getEntryDate();
 
-    public void setEntryDate(Date date);
+    void setEntryDate(Date date);
 
-    public float getEntryOdometer();
+    float getEntryOdometer();
 
-    public void setEntryOdometer(float odo);
+    void setEntryOdometer(float odo);
 
-    public String getEntryComments();
+    String getEntryComments();
 
-    public void setEntryComments(String comments);
+    void setEntryComments(String comments);
 
-    public String getEntryType();
+    String getEntryType();
 
-    public void setEntryType(String type);
+    void setEntryType(String type);
 }
-/**
- * public class TrackerEntry {
- * <p>
- * private Date entryDate;
- * private String entryType;
- * private float entryOdometer;
- * private String entryComments;
- * <p>
- * /**
- * // Attributes for type Gas
- * private float gas_gallons;
- * private float gas_pricePer;
- * private float gas_total;
- * <p>
- * // Attributes for type Repair
- * private String repair_shopName;
- * private float repair_cost;
- * <p>
- * // Attributes for type Maintenance
- * private String maint_type;      // i.e. brakes, transmission, engine, etc.
- * private float maint_cost;
- * <p>
- * <p>
- * TrackerEntry(Date date, float odo, String type, String comments) {
- * this.entryDate = date;
- * this.entryOdometer = odo;
- * this.entryType = type;
- * this.entryComments = comments;
- * }
- * <p>
- * public Date getEntryDate() {
- * return entryDate;
- * }
- * public float getEntryOdometer() {
- * return entryOdometer;
- * }
- * public String getEntryComments() {
- * return entryComments;
- * }
- * public String getEntryType() {
- * return entryType;
- * }
- * <p>
- * public void setEntryComments(String entryComments) {
- * this.entryComments = entryComments;
- * }
- * public void setEntryDate(Date entryDate) {
- * this.entryDate = entryDate;
- * }
- * public void setEntryOdometer(float entryOdometer) {
- * this.entryOdometer = entryOdometer;
- * }
- * public void setEntryType(String entryType) {
- * this.entryType = entryType;
- * }
- * }
- * <p>
- * <p>
- * *********************************************************************************
- * <p>
- * Skip to content
- * Search or jump to…
- * <p>
- * Pull requests
- * Issues
- * Marketplace
- * Explore
- *
- * @MichaelPate 0
+/*
+  public class TrackerEntry {
+  <p>
+  private Date entryDate;
+  private String entryType;
+  private float entryOdometer;
+  private String entryComments;
+  <p>
+  /**
+  // Attributes for type Gas
+  private float gas_gallons;
+  private float gas_pricePer;
+  private float gas_total;
+  <p>
+  // Attributes for type Repair
+  private String repair_shopName;
+  private float repair_cost;
+  <p>
+  // Attributes for type Maintenance
+  private String maint_type;      // i.e. brakes, transmission, engine, etc.
+  private float maint_cost;
+  <p>
+  <p>
+  TrackerEntry(Date date, float odo, String type, String comments) {
+  this.entryDate = date;
+  this.entryOdometer = odo;
+  this.entryType = type;
+  this.entryComments = comments;
+  }
+  <p>
+  public Date getEntryDate() {
+  return entryDate;
+  }
+  public float getEntryOdometer() {
+  return entryOdometer;
+  }
+  public String getEntryComments() {
+  return entryComments;
+  }
+  public String getEntryType() {
+  return entryType;
+  }
+  <p>
+  public void setEntryComments(String entryComments) {
+  this.entryComments = entryComments;
+  }
+  public void setEntryDate(Date entryDate) {
+  this.entryDate = entryDate;
+  }
+  public void setEntryOdometer(float entryOdometer) {
+  this.entryOdometer = entryOdometer;
+  }
+  public void setEntryType(String entryType) {
+  this.entryType = entryType;
+  }
+  }
+  <p>
+  <p>
+  *********************************************************************************
+  <p>
+  Skip to content
+  Search or jump to…
+  <p>
+  Pull requests
+  Issues
+  Marketplace
+  Explore
+
+  @MichaelPate 0
  * 00MichaelPate/GasTracker
  * Code Issues 0 Pull requests 0 Actions Projects 0 Wiki Security Insights Settings
  * GasTracker/app/src/main/java/com/example/michael/gastracker/sqliteHelperClass.java
@@ -287,4 +287,4 @@ interface TrackerEntry {
  * return this.getAllEntries().size();
  * }
  * }
- **/
+ */

@@ -9,16 +9,21 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private EntryDatabase db = null;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         try {
+// check flag for new install, if new install, open app to settings page. Make sure user enters initial miles, and when they press save and home, clear the flag and go to home like normal.
+            EntryDatabase db = new EntryDatabase(this);
 
-            db = new EntryDatabase(this);
+            String isNew = db.getInformation("isInstallNew");
+            if(isNew == null) {
+                // Open settings intent
+                // Set isInstallNew to "False"
+                openSettings(null);
+            }
 
             String opt = db.getInformation("optionBar1");
             TextView lab = findViewById(R.id.option1Label);
