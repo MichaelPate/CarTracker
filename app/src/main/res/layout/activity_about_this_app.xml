@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AboutThisApp">
+    tools:context=".activity_about_this_app">
 
     <Button
         android:id="@+id/button2"
