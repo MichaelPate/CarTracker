@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 class entry_database extends SQLiteOpenHelper {
@@ -257,7 +258,6 @@ class entry_database extends SQLiteOpenHelper {
 
 
     // Returns a nicely formatted string of the row of information.
-    // If includeInformation = true, it will also prettify the
     String exportEntryByKeyId(String id) {
         String sqlQuery = "SELECT * FROM " + TABLE_ENTRIES;
 
@@ -311,6 +311,59 @@ class entry_database extends SQLiteOpenHelper {
         return exportEntryByKeyId(getKeyIdByEid(eid));
     }
 
+    // This is used for internals, the exportEntryByKeyId is for exportation.
+    ArrayList<String> getEntryByKeyId(String id) {
+        String sqlQuery = "SELECT * FROM " + TABLE_ENTRIES;
+
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(sqlQuery, null);
+
+        try {
+            if (cursor.moveToFirst()) {
+                do {
+                    if (Objects.equals(cursor.getString(col_id), id)) {
+                        // Build string here
+                        String type = cursor.getString(col_type);
+
+                        // Add common data
+                        ArrayList<String> output = new ArrayList<String>();
+                        output.add("ID:" + cursor.getString(col_id));
+                        output.add("Date:" + cursor.getString(col_date));
+                        output.add("Odometer:" + cursor.getString(col_odometer));
+                        output.add("Type:" + type);
+                        output.add("Comments:" + cursor.getString(col_comments));
+
+                        if (Objects.equals(type, "Gas")) {
+                            output.add("Gas Price:" + cursor.getString(col_gasprice));
+                            output.add("Gas Volume:" + cursor.getString(col_gasvolume));
+                            output.add("Gas Total:" + cursor.getString(col_gastotal));
+                        } else if (Objects.equals(type, "Repair")) {
+                            output.add("Repair Name:" + cursor.getString(col_repairname));
+                            output.add("Repair Price:" + cursor.getString(col_repairprice));
+                        } else if (Objects.equals(type, "Maintenance")) {
+                            output.add("Maintenance Type:" + cursor.getString(col_mainttype));
+                            output.add("Maintenance Price:" + cursor.getString(col_maintcost));
+                        } else if (Objects.equals(type, "INFORMATION")) {
+                            output.add("Information Subject:" + cursor.getString(col_repairname));
+                            output.add("Information Body:" + cursor.getString(col_comments));
+                        } else {
+                            throw new Exception("Invalid Entry Type");
+                        }
+                        return output;
+                    }
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+        } catch (Exception e) {
+            Log.e("CarTrackerSQL", "Could not export row by Key ID.");
+            ArrayList<String> nullList = new ArrayList<String>();
+            nullList.add("Null:");
+            return nullList;
+        }
+        return null;
+    }
+
+    ArrayList<String> getEntryByEid(String eid) { return getEntryByKeyId(getKeyIdByEid(eid)); }
 
     /**
      * Deletes an entry in the database based on its Entry ID.
