@@ -18,6 +18,7 @@ import java.util.Objects;
 public class activity_app_settings extends AppCompatActivity {
 
     // All settings and options here
+    //NOTE: All settings need a value here to capture the value upon creation
     String opt1, opt2, opt3, opt4, initMiles;
 
     private entry_database db = null;

@@ -87,10 +87,10 @@ public class activity_entry_list extends AppCompatActivity {
                     Toast toast = Toast.makeText(context, text, duration);
                     toast.show();
                 } else {
-                    //Intent readEntry =
-                    //        new Intent(activity_entry_list.this, activity_entry_view.class);
-                    //readEntry.putExtra("eid", clickedValue.split(" ")[0]);
-                    //activity_entry_list.this.startActivity(readEntry);
+                    Intent readEntry =
+                            new Intent(activity_entry_list.this, activity_entry_viewer.class);
+                    readEntry.putExtra("eid", clickedValue.split(" ")[0]);
+                    activity_entry_list.this.startActivity(readEntry);
                 }
             }
         });
