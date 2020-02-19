@@ -110,4 +110,13 @@ public class activity_entry_list extends AppCompatActivity {
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
     }
+
+    public void newEntry(View v) {
+        // Get the highest eid, add one, and send that to the entry editor
+        int targetEid = db.countAllEntries(false);
+        targetEid++;
+        Intent openActivity = new Intent(activity_entry_list.this, activity_entry_editor.class);
+        openActivity.putExtra("eid", Integer.toString(targetEid));
+        activity_entry_list.this.startActivity(openActivity);
+    }
 }

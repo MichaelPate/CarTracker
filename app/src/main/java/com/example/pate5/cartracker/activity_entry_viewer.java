@@ -144,6 +144,7 @@ public class activity_entry_viewer extends AppCompatActivity {
     public void edit(View v) {
         // Send the eid in the intent to the entry editor so that it can populate boxes
         Intent openActivity = new Intent(activity_entry_viewer.this, activity_entry_editor.class);
+        openActivity.putExtra("eid", getIntent().getStringExtra("eid"));
         activity_entry_viewer.this.startActivity(openActivity);
     }
 }
