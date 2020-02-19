@@ -19,7 +19,8 @@
         <activity android:name=".activity_about_this_app" />
         <activity android:name=".activity_app_settings" />
         <activity android:name=".activity_entry_list" />
-        <activity android:name=".activity_entry_viewer"></activity>
+        <activity android:name=".activity_entry_viewer" />
+        <activity android:name=".activity_entry_editor"></activity>
     </application>
 
 </manifest>

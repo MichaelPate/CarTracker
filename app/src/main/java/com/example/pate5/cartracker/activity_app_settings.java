@@ -91,7 +91,6 @@ public class activity_app_settings extends AppCompatActivity {
                 builder.setPositiveButton("Home", new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int which) {
-                        // Do nothing but close the dialog
                         Intent openActivity = new Intent(activity_app_settings.this, activity_main.class);
                         activity_app_settings.this.startActivity(openActivity);
                         dialog.dismiss();

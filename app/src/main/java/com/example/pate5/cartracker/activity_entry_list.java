@@ -101,4 +101,13 @@ public class activity_entry_list extends AppCompatActivity {
         Intent openActivity = new Intent(activity_entry_list.this, activity_main.class);
         activity_entry_list.this.startActivity(openActivity);
     }
+
+    public void exportAll(View v) {
+        // TODO: Add export feature to entry list viewer
+        Context context = getApplicationContext();
+        CharSequence text = "Not available yet.";
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+    }
 }
