@@ -6,7 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -24,6 +27,13 @@ public class activity_entry_viewer extends AppCompatActivity {
             ArrayList<String> entryAttribs = db.getEntryByEid(getIntent().getStringExtra("eid"));
 
             // TODO: Get the attributes and render them on the activity.
+            TextView idView = findViewById(R.id.entryIdBox);
+            idView.setText(entryAttribs.get(1));
+
+            TextView dateView = findViewById(R.id.entryDateBox);
+            dateView.setText(entryAttribs.get(1));
+
+            //TODO: Add code to populate the rest of the fields.
 
         } catch (Exception e) {
             Context context = getApplicationContext();
