@@ -150,15 +150,15 @@ public class activity_main extends AppCompatActivity {
 
                 if (clickedValue.equals("No entries to display!")) {
                     Context context = getApplicationContext();
-                    CharSequence text = "Click New Entry button to start.";
+                    CharSequence text = "Click View Entries button to start.";
                     int duration = Toast.LENGTH_SHORT;
                     Toast toast = Toast.makeText(context, text, duration);
                     toast.show();
                 } else {
-                    //Intent readEntry =
-                    //        new Intent(activity_main.this, activity_entry_view.class);
-                    //readEntry.putExtra("eid", clickedValue.split(" ")[0]);
-                    //activity_main.this.startActivity(readEntry);
+                    Intent readEntry =
+                            new Intent(activity_main.this, activity_entry_viewer.class);
+                    readEntry.putExtra("eid", clickedValue.split(" ")[0]);
+                    activity_main.this.startActivity(readEntry);
                 }
             }
         });

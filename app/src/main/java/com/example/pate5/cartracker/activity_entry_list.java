@@ -87,10 +87,10 @@ public class activity_entry_list extends AppCompatActivity {
                     Toast toast = Toast.makeText(context, text, duration);
                     toast.show();
                 } else {
-                    //Intent readEntry =
-                    //        new Intent(activity_entry_list.this, activity_entry_view.class);
-                    //readEntry.putExtra("eid", clickedValue.split(" ")[0]);
-                    //activity_entry_list.this.startActivity(readEntry);
+                    Intent readEntry =
+                            new Intent(activity_entry_list.this, activity_entry_viewer.class);
+                    readEntry.putExtra("eid", clickedValue.split(" ")[0]);
+                    activity_entry_list.this.startActivity(readEntry);
                 }
             }
         });
@@ -99,6 +99,24 @@ public class activity_entry_list extends AppCompatActivity {
 
     public void returnToHome(View v) {
         Intent openActivity = new Intent(activity_entry_list.this, activity_main.class);
+        activity_entry_list.this.startActivity(openActivity);
+    }
+
+    public void exportAll(View v) {
+        // TODO: Add export feature to entry list viewer
+        Context context = getApplicationContext();
+        CharSequence text = "Not available yet.";
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+    }
+
+    public void newEntry(View v) {
+        // Get the highest eid, add one, and send that to the entry editor
+        int targetEid = db.countAllEntries(false);
+        targetEid++;
+        Intent openActivity = new Intent(activity_entry_list.this, activity_entry_editor.class);
+        openActivity.putExtra("eid", Integer.toString(targetEid));
         activity_entry_list.this.startActivity(openActivity);
     }
 }
